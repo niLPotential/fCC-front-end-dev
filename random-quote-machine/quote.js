@@ -1,9 +1,15 @@
-main();
+handleNewQuote();
 
-async function main() {
+document.getElementById("new-quote").addEventListener(
+  "click",
+  handleNewQuote,
+);
+
+async function handleNewQuote() {
   const quote = await getRandomQuote();
 
-  console.log(quote);
+  document.getElementById("text").innerText = quote.text;
+  document.getElementById("author").innerText = quote.author;
 }
 
 async function getRandomQuote() {
