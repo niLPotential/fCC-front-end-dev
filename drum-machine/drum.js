@@ -54,6 +54,8 @@ function handleKeyDown(event) {
 function createDrumPadElem(drumPadInfo) {
   const drumPadButton = document.createElement("button");
   drumPadButton.classList.add("drum-pad");
+  drumPadButton.classList.add("btn");
+  drumPadButton.classList.add("btn-dark");
   drumPadButton.id = drumPadInfo.id;
   drumPadButton.innerText = drumPadInfo.innerText;
 
