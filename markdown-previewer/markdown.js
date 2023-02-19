@@ -12,7 +12,7 @@ const sampleMarkdown = `# Heading Element
 
 > blockquote
 
-![image](path "title")
+![freeCodeCamp Logo](https://raw.githubusercontent.com/freeCodeCamp/design-style-guide/main/assets/fcc_secondary_large_24X210.svg "freeCodeCamp Logo")
 
 **bolded text**
 `;
