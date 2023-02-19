@@ -20,8 +20,10 @@ const sampleMarkdown = `# Heading Element
 const editorElem = document.getElementById("editor");
 const previewElem = document.getElementById("preview");
 
-editorElem.innerHTML = sampleMarkdown;
-previewElem.innerHTML = marked.parse(editorElem.innerHTML);
+marked.setOptions({ breaks: true });
+
+editorElem.value = sampleMarkdown;
+previewElem.innerHTML = marked.parse(editorElem.value);
 
 editorElem.addEventListener("input", handleEditorInput);
 
