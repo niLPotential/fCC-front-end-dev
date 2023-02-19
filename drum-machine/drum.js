@@ -54,10 +54,14 @@ function handleKeyDown(event) {
 function createDrumPadElem(drumPadInfo) {
   const drumPadButton = document.createElement("button");
   drumPadButton.classList.add("drum-pad");
-  drumPadButton.classList.add("btn");
-  drumPadButton.classList.add("btn-dark");
   drumPadButton.id = drumPadInfo.id;
   drumPadButton.innerText = drumPadInfo.innerText;
+
+  // bootstrap styling
+  drumPadButton.classList.add("btn");
+  drumPadButton.classList.add("btn-dark");
+  drumPadButton.classList.add("col-3");
+  drumPadButton.classList.add("m-1");
 
   const drumPadAudio = document.createElement("audio");
   drumPadAudio.classList.add("clip");
