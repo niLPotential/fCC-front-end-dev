@@ -146,6 +146,7 @@ let initalState = {
   inputList: [],
   display: "0",
   isDecimal: false,
+  reset: false,
 };
 
 class Calculator extends React.Component {
@@ -162,9 +163,10 @@ class Calculator extends React.Component {
         inputList: [...this.state.inputList, this.state.display],
         display: event.target.value,
       });
-    } else if (this.state.display == "0") {
+    } else if (this.state.reset || this.state.display == "0") {
       this.setState({
         ...this.state,
+        reset: false,
         display: event.target.value,
       });
     } else {
@@ -222,7 +224,7 @@ class Calculator extends React.Component {
       }
     }
 
-    this.setState({ ...initalState, display: result.toString() });
+    this.setState({ ...initalState, display: result.toString(), reset: true });
   };
 
   handleClearClick = () => {
