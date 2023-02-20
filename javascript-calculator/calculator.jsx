@@ -1,6 +1,33 @@
-"use strict";
+class Display extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div id="display">
+        {this.props.display.firstNumber}
+        {this.props.display.operator}
+        {this.props.display.secondNumber}
+      </div>
+    );
+  }
+}
 
-class NumberComponent extends React.Component {
+class NumberButton extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <button id={this.props.id} onClick={this.props.onClick}>
+        {this.props.id}
+      </button>
+    );
+  }
+}
+
+class OperatorButton extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -10,17 +37,48 @@ class NumberComponent extends React.Component {
   }
 }
 
-const displayElem = document.getElementById("display");
-const displayRoot = ReactDOM.createRoot(displayElem);
-displayRoot.render(<NumberComponent id="zero" />);
+class Calculator extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-// ReactDOM.render(<NumberComponent />, document.getElementById("display"));
+  state = {
+    firstNumber: 10,
+    secondNumber: 10,
+    operator: "C",
+    isSecondNumberActive: false,
+  };
 
-// let number1 = 0;
-// let number2 = 0;
-// let operator = "";
+  render() {
+    return (
+      <div id="calculator-container">
+        <Display display={this.state} />
 
-// document.getElementById("equals").addEventListener("click", handleEqualsCLick);
+        <NumberButton
+          id="zero"
+          onClick={() => {
+            this.setState({ firstNumber: 0 });
+          }}
+        />
+        <NumberButton id="one" />
+        <NumberButton id="two" />
+        <NumberButton id="three" />
+        <NumberButton id="four" />
+        <NumberButton id="five" />
+        <NumberButton id="six" />
+        <NumberButton id="seven" />
+        <NumberButton id="eight" />
+        <NumberButton id="nine" />
 
-// function handleEqualsCLick() {
-// }
+        <OperatorButton id="add" />
+        <OperatorButton id="subtract" />
+        <OperatorButton id="multiply" />
+        <OperatorButton id="divide" />
+      </div>
+    );
+  }
+}
+
+const rootElem = document.getElementById("root");
+const root = ReactDOM.createRoot(rootElem);
+root.render(<Calculator />);
