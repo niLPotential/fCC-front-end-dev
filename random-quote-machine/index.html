@@ -10,13 +10,37 @@
     <link rel="stylesheet" href="styles.css" />
 </head>
 
-<body class="vh-100 bg-primary-subtle d-flex justify-content-center align-items-center">
-    <div id="quote-box" class="bg-white p-3">
-        <div id="text">Text</div>
-        <div id="author" class="text-end">Author</div>
-        <button id="new-quote" class="btn btn-dark">New Quote</button>
-        <a id="tweet-quote" class="btn btn-dark" href="twitter.com/intent/tweet" target="_blank">Tweet</a>
+<body class="vh-100 bg-primary-subtle d-flex flex-column">
+    <nav class="navbar navbar-expand fixed-top justify-content-end bg-body-tertiary">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="random-quote-machine/index.html">
+                    Random Quote Machine</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="markdown-previewer/index.html">Markdown Previewer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href=" drum-machine/index.html">Drum Machine</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="javascript-calculator/index.html">JavaScript Calculator</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="25--5-clock/index.html">25 + 5 Clock</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="quote-box-container" class="flex-grow-1 d-flex justify-content-center align-items-center">
+        <div id="quote-box" class="bg-white p-3">
+            <div id="text">Text</div>
+            <div id="author" class="text-end">Author</div>
+            <button id="new-quote" class="btn btn-dark">New Quote</button>
+            <a id="tweet-quote" class="btn btn-dark" href="twitter.com/intent/tweet" target="_blank">Tweet</a>
+        </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="quote.js"></script>
     <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
 </body>
