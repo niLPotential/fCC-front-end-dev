@@ -146,6 +146,7 @@ let initalState = {
   inputList: [],
   display: "0",
   isDecimal: false,
+  isMinus: false,
   reset: false,
 };
 
@@ -157,7 +158,12 @@ class Calculator extends React.Component {
   state = initalState;
 
   handleNumberClick = (event) => {
-    if (isStringOperator(this.state.display)) {
+    if (this.state.isMinus) {
+      this.setState({
+        ...this.state,
+        display: this.state.display + event.target.value,
+      });
+    } else if (isStringOperator(this.state.display)) {
       this.setState({
         ...this.state,
         inputList: [...this.state.inputList, this.state.display],
@@ -188,13 +194,30 @@ class Calculator extends React.Component {
   };
 
   handleOperatorClick = (event) => {
-    if (isStringOperator(this.state.display)) {
+    if (this.state.isMinus) {
       this.setState({
         ...this.state,
+        inputList: this.state.inputList.slice(0, -1),
         display: event.target.value,
+        isMinus: false,
       });
+    } else if (isStringOperator(this.state.display)) {
+      if (event.target.value === "-") {
+        this.setState({
+          ...this.state,
+          inputList: [...this.state.inputList, this.state.display],
+          display: event.target.value,
+          isMinus: true,
+        });
+      } else {
+        this.setState({
+          ...this.state,
+          display: event.target.value,
+        });
+      }
     } else {
       this.setState({
+        ...this.state,
         inputList: [...this.state.inputList, this.state.display],
         display: event.target.value,
         isDecimal: false,
@@ -236,7 +259,6 @@ class Calculator extends React.Component {
       <div id="calculator-container">
         <div>{this.state.inputList.join(";")}</div>
         <div id="display">{this.state.display}</div>
-        {/* <ol>{this.state.inputList.map((input) => <li>{input}</li>)}</ol> */}
 
         <NumberPad
           handleNumberClick={this.handleNumberClick}
