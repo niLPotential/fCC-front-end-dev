@@ -2,7 +2,7 @@ const sampleMarkdown = `# Heading Element
 
 ## Sub Heading Element
 
-[Link to freeCodeCamp](https://www.freecodecamp.org/)
+[link](https://www.freecodecamp.org/)
 
 \`inline code\`
 
