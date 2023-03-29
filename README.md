@@ -11,3 +11,6 @@ HTML, CSS and JavaScript
 
 Programming quotes from
 [Dev Community](https://dev.to/jeremycmorgan/7-great-programming-quotes-o95)
+
+Calculator built with [React](https://react.dev/) class components and 25 + 5
+clock with React function components
