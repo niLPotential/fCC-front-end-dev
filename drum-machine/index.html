@@ -10,9 +10,33 @@
     <link rel="stylesheet" href="styles.css" />
 </head>
 
-<body class="vh-100 bg-primary-subtle d-flex justify-content-center align-items-center container">
-    <div id="drum-machine" class="w-25 row justify-content-around bg-primary p-3 border border-dark rounded-5">
-        <div id="display" class="w-75 d-flex justify-content-center align-items-center bg-white m-3 border border-dark">
+<body class="vh-100 bg-primary-subtle d-flex flex-column">
+    <nav class="navbar navbar-expand fixed-top justify-content-end bg-body-tertiary">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="../random-quote-machine/">
+                    Random Quote Machine</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../markdown-previewer/">Markdown Previewer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href=".">Drum Machine</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../javascript-calculator/">JavaScript Calculator</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../25--5-clock/">25 + 5 Clock</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="drum-machine-container" class="container flex-grow-1 d-flex justify-content-center align-items-center">
+        <div id="drum-machine" class="w-25 row justify-content-around bg-primary p-3 border border-dark rounded-5">
+            <div id="display"
+                class="w-75 d-flex justify-content-center align-items-center bg-white m-3 border border-dark">
+            </div>
         </div>
     </div>
     <script src="drum.js"></script>

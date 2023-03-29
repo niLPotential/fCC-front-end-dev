@@ -14,8 +14,7 @@ const sampleMarkdown = `# Heading Element
 
 ![freeCodeCamp Logo](https://raw.githubusercontent.com/freeCodeCamp/design-style-guide/main/assets/fcc_secondary_large_24X210.svg "freeCodeCamp Logo")
 
-**bolded text**
-`;
+**bolded text**`;
 
 const editorElem = document.getElementById("editor");
 const previewElem = document.getElementById("preview");
