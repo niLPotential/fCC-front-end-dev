@@ -5,7 +5,8 @@ class NumberButton extends React.Component {
   render() {
     return (
       <button
-        className={this.props.id === "zero" ? "col-8" : "col"}
+        type="button"
+        className="btn btn-secondary"
         id={this.props.id}
         value={this.props.value}
         onClick={this.props.handleNumberClick}
@@ -23,8 +24,9 @@ class DecimalButton extends React.Component {
   render() {
     return (
       <button
+        type="button"
         id="decimal"
-        className="col"
+        className="btn btn-secondary"
         onClick={this.props.handleDecimalClick}
       >
         .
@@ -40,10 +42,10 @@ class NumberPad extends React.Component {
 
   render() {
     return (
-      <div id="number-pad" className="row row-cols-3">
+      <div id="number-pad">
         <NumberButton
-          id="nine"
-          value="9"
+          id="seven"
+          value="7"
           handleNumberClick={this.props.handleNumberClick}
         />
         <NumberButton
@@ -52,13 +54,14 @@ class NumberPad extends React.Component {
           handleNumberClick={this.props.handleNumberClick}
         />
         <NumberButton
-          id="seven"
-          value="7"
+          id="nine"
+          value="9"
           handleNumberClick={this.props.handleNumberClick}
         />
+
         <NumberButton
-          id="six"
-          value="6"
+          id="four"
+          value="4"
           handleNumberClick={this.props.handleNumberClick}
         />
         <NumberButton
@@ -67,13 +70,14 @@ class NumberPad extends React.Component {
           handleNumberClick={this.props.handleNumberClick}
         />
         <NumberButton
-          id="four"
-          value="4"
+          id="six"
+          value="6"
           handleNumberClick={this.props.handleNumberClick}
         />
+
         <NumberButton
-          id="three"
-          value="3"
+          id="one"
+          value="1"
           handleNumberClick={this.props.handleNumberClick}
         />
         <NumberButton
@@ -82,10 +86,11 @@ class NumberPad extends React.Component {
           handleNumberClick={this.props.handleNumberClick}
         />
         <NumberButton
-          id="one"
-          value="1"
+          id="three"
+          value="3"
           handleNumberClick={this.props.handleNumberClick}
         />
+
         <NumberButton
           id="zero"
           value="0"
@@ -105,7 +110,9 @@ class OperatorButton extends React.Component {
   render() {
     return (
       <button
+        type="button"
         id={this.props.id}
+        className="btn btn-secondary"
         value={this.props.value}
         onClick={this.props.handleOperatorClick}
       >
@@ -122,29 +129,31 @@ class OperatorPad extends React.Component {
 
   render() {
     return (
-      <div id="operator-pad" className="row">
-        <div className="col d-flex flex-column g-0">
-          <OperatorButton
-            id="divide"
-            value="/"
-            handleOperatorClick={this.props.handleOperatorClick}
-          />
-          <OperatorButton
-            id="multiply"
-            value="*"
-            handleOperatorClick={this.props.handleOperatorClick}
-          />
-          <OperatorButton
-            id="subtract"
-            value="-"
-            handleOperatorClick={this.props.handleOperatorClick}
-          />
-          <OperatorButton
-            id="add"
-            value="+"
-            handleOperatorClick={this.props.handleOperatorClick}
-          />
-        </div>
+      <div
+        id="operator-pad"
+        className="btn-group-vertical ms-2 pt-2"
+        role="group"
+      >
+        <OperatorButton
+          id="divide"
+          value="/"
+          handleOperatorClick={this.props.handleOperatorClick}
+        />
+        <OperatorButton
+          id="multiply"
+          value="*"
+          handleOperatorClick={this.props.handleOperatorClick}
+        />
+        <OperatorButton
+          id="subtract"
+          value="-"
+          handleOperatorClick={this.props.handleOperatorClick}
+        />
+        <OperatorButton
+          id="add"
+          value="+"
+          handleOperatorClick={this.props.handleOperatorClick}
+        />
       </div>
     );
   }
@@ -264,35 +273,41 @@ class Calculator extends React.Component {
 
   render() {
     return (
-      <div id="calculator-container" className="container border">
-        <div id="input-list" className="text-end">
+      <div id="calculator-container" className="bg-dark p-4 rounded-4">
+        <div id="input-list" className="bg-dark-subtle p-1 text-end">
           {this.state.inputList.join(" ")}
         </div>
-        <div id="display" className="text-end">{this.state.display}</div>
-
-        <div className="row">
-          <button
-            id="clear"
-            className="col-9"
-            onClick={this.handleClearClick}
-          >
-            Clear
-          </button>
-          <button id="equals" className="col" onClick={this.handleEqualsClick}>
-            =
-          </button>
+        <div id="display" className="bg-light p-1 text-end">
+          {this.state.display}
         </div>
 
-        <div className="row">
-          <div className="col-9">
+        <div className="d-flex p-2">
+          <div className="d-flex flex-column">
+            <div className="btn-group my-2" role="group">
+              <button
+                type="button"
+                id="clear"
+                className="btn btn-secondary"
+                onClick={this.handleClearClick}
+              >
+                Clear
+              </button>
+              <button
+                type="button"
+                id="equals"
+                className="btn btn-secondary"
+                onClick={this.handleEqualsClick}
+              >
+                =
+              </button>
+            </div>
+
             <NumberPad
               handleNumberClick={this.handleNumberClick}
               handleDecimalClick={this.handleDecimalClick}
             />
           </div>
-          <div className="col">
-            <OperatorPad handleOperatorClick={this.handleOperatorClick} />
-          </div>
+          <OperatorPad handleOperatorClick={this.handleOperatorClick} />
         </div>
       </div>
     );

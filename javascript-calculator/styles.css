@@ -1,3 +1,15 @@
 #input-list {
-    height: 40px
+    height: 2rem;
+}
+
+#number-pad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 0.5rem;
+    row-gap: 0.5rem;
+}
+
+#zero {
+    grid-column-start: 1;
+    grid-column-end: 3;
 }
