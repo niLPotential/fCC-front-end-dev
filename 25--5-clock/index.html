@@ -6,32 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-    <div id="break-label">Break Length</div>
-    <div id="session-label">Session Length</div>
+    <div id="root"></div>
 
-    <button id="break-decrement"></button>
-    <button id="session-decrement"></button>
-
-    <button id="break-increment"></button>
-    <button id="session-increment"></button>
-
-    <div id="break-length">5</div>
-
-    <div id="session-length">25</div>
-
-    <div id="timer-label">Session</div>
-
-    <div id="time-left">mm:ss</div>
-
-    <button id="start-stop"></button>
-
-    <button id="reset"></button>
-
-    <script src="clock.js"></script>
+    <script type="text/babel" src="clock.jsx"></script>
     <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
 </body>
 
