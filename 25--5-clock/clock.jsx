@@ -2,11 +2,11 @@ const { useState } = React;
 
 function Session({ session, setSession }) {
   function handleSessionInc() {
-    setSession(Math.min(session + 1, 60));
+    setSession((s) => Math.min(s + 1, 60));
   }
 
   function handleSessionDec() {
-    setSession(Math.max(session - 1, 1));
+    setSession((s) => Math.max(s - 1, 1));
   }
 
   return (
@@ -25,11 +25,11 @@ function Session({ session, setSession }) {
 
 function Break({ breakLength, setBreak }) {
   function handleBreakInc() {
-    setBreak(Math.min(breakLength + 1, 60));
+    setBreak((b) => Math.min(b + 1, 60));
   }
 
   function handleBreakDec() {
-    setBreak(Math.max(breakLength - 1, 1));
+    setBreak((b) => Math.max(b - 1, 1));
   }
 
   return (
@@ -70,8 +70,8 @@ function Timer() {
 }
 
 function Clock() {
-  let [session, setSession] = useState(25);
-  let [breakLength, setBreak] = useState(5);
+  const [session, setSession] = useState(25);
+  const [breakLength, setBreak] = useState(5);
 
   return (
     <div>
