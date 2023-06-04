@@ -1,6 +1,28 @@
 const { useState, useEffect } = React;
 
-function Session({ session, setSession }) {
+function Clock() {
+  const [session, setSession] = useState(1);
+  const [breakLength, setBreak] = useState(2);
+  const [isRunning, setIsRunning] = useState(false); // true while running, false while stopped;
+  const [isSession, setIsSession] = useState(true); // true while session, false while break;
+  const [sec, setSec] = useState(0);
+
+  useEffect(() => {
+    const timeoutID = setTimeout(
+      () => {
+        if (sec === 0) {
+          // Because of useEffect
+          setSec(isSession ? breakLength * 60 : session * 60);
+          setIsSession((is) => !is);
+        } else if (isRunning) {
+          setSec((s) => s - 1);
+        }
+      },
+      100,
+    );
+    return () => clearTimeout(timeoutID);
+  }, [isRunning, sec]);
+
   function handleSessionInc() {
     setSession((s) => Math.min(s + 1, 60));
   }
@@ -9,21 +31,6 @@ function Session({ session, setSession }) {
     setSession((s) => Math.max(s - 1, 1));
   }
 
-  return (
-    <div>
-      <div id="session-label">Session Length</div>
-      <button id="session-decrement" onClick={handleSessionDec}>
-        -
-      </button>
-      <div id="session-length">{session}</div>
-      <button id="session-increment" onClick={handleSessionInc}>
-        +
-      </button>
-    </div>
-  );
-}
-
-function Break({ breakLength, setBreak }) {
   function handleBreakInc() {
     setBreak((b) => Math.min(b + 1, 60));
   }
@@ -32,60 +39,46 @@ function Break({ breakLength, setBreak }) {
     setBreak((b) => Math.max(b - 1, 1));
   }
 
-  return (
-    <div>
-      <div id="break-label">Break Length</div>
-      <button id="break-decrement" onClick={handleBreakDec}>
-        -
-      </button>
-      <div id="break-length">{breakLength}</div>
-      <button id="break-increment" onClick={handleBreakInc}>
-        +
-      </button>
-    </div>
-  );
-}
+  function handleStop() {
+    setIsRunning((is) => !is);
+  }
 
-function Timer({ min, setIsSession }) {
-  const [sec, setSec] = useState(min * 60);
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setSec((s) => s - 1);
-    }, 100);
-    return () => clearInterval(intervalId);
-  }, []);
-
-  if (sec < 0) {
-    setIsSession((is) => !is);
+  function handleReset() {
+    setSession(25);
+    setBreak(5);
   }
 
   return (
     <div>
-      <div id="time-left">{Math.floor(sec / 60)}:{sec % 60}</div>
-    </div>
-  );
-}
+      <div>
+        <div id="session-label">Session Length</div>
+        <button id="session-decrement" onClick={handleSessionDec}>
+          -
+        </button>
+        <div id="session-length">{session}</div>
+        <button id="session-increment" onClick={handleSessionInc}>
+          +
+        </button>
+      </div>
 
-function Clock() {
-  const [session, setSession] = useState(2);
-  const [breakLength, setBreak] = useState(1);
-  const [isSession, setIsSession] = useState(true); // true while session, false while break;
-
-  return (
-    <div>
-      <Session session={session} setSession={setSession} />
-      <Break breakLength={breakLength} setBreak={setBreak} />
+      <div>
+        <div id="break-label">Break Length</div>
+        <button id="break-decrement" onClick={handleBreakDec}>
+          -
+        </button>
+        <div id="break-length">{breakLength}</div>
+        <button id="break-increment" onClick={handleBreakInc}>
+          +
+        </button>
+      </div>
 
       <div id="timer-label">{isSession ? "Session" : "Break"}</div>
-      {isSession ? <Timer min={session} setIsSession={setIsSession} /> : null}
-      {!isSession
-        ? <Timer min={breakLength} setIsSession={setIsSession} />
-        : null}
+      <div id="time-left">{Math.floor(sec / 60)}:{sec % 60}</div>
 
-      <button id="start-stop"></button>
-
-      <button id="reset">Reset</button>
+      <button id="start-stop" onClick={handleStop}>
+        {isRunning ? "Stop" : "Start"}
+      </button>
+      <button id="reset" onClick={handleReset}>Reset</button>
     </div>
   );
 }
