@@ -1,84 +1,77 @@
-const { useState, useEffect } = React;
+const { useState } = React;
 
-function Clock() {
-  const [session, setSession] = useState(1);
-  const [breakLength, setBreak] = useState(2);
-  const [isRunning, setIsRunning] = useState(false); // true while running, false while stopped;
-  const [isSession, setIsSession] = useState(true); // true while session, false while break;
-  const [sec, setSec] = useState(0);
-
-  useEffect(() => {
-    const timeoutID = setTimeout(
-      () => {
-        if (sec === 0) {
-          // Because of useEffect
-          setSec(isSession ? breakLength * 60 : session * 60);
-          setIsSession((is) => !is);
-        } else if (isRunning) {
-          setSec((s) => s - 1);
-        }
-      },
-      100,
-    );
-    return () => clearTimeout(timeoutID);
-  }, [isRunning, sec]);
-
-  function handleSessionInc() {
-    setSession((s) => Math.min(s + 1, 60));
+function SetLength({ name, min, set }) {
+  function handleInc() {
+    set((s) => Math.min(s + 1, 60));
   }
 
-  function handleSessionDec() {
-    setSession((s) => Math.max(s - 1, 1));
-  }
-
-  function handleBreakInc() {
-    setBreak((b) => Math.min(b + 1, 60));
-  }
-
-  function handleBreakDec() {
-    setBreak((b) => Math.max(b - 1, 1));
-  }
-
-  function handleStop() {
-    setIsRunning((is) => !is);
-  }
-
-  function handleReset() {
-    setSession(25);
-    setBreak(5);
+  function handleDec() {
+    set((s) => Math.max(s - 1, 1));
   }
 
   return (
     <div>
-      <div>
-        <div id="session-label">Session Length</div>
-        <button id="session-decrement" onClick={handleSessionDec}>
-          -
-        </button>
-        <div id="session-length">{session}</div>
-        <button id="session-increment" onClick={handleSessionInc}>
-          +
-        </button>
-      </div>
+      <div id={`${name}-label`}>{name} length</div>
+      <button id={`${name}-decrement`} onClick={handleDec}>-</button>
+      <div id={`${name}-length`}>{min}</div>
+      <button id={`${name}-increment`} onClick={handleInc}>+</button>
+    </div>
+  );
+}
 
-      <div>
-        <div id="break-label">Break Length</div>
-        <button id="break-decrement" onClick={handleBreakDec}>
-          -
-        </button>
-        <div id="break-length">{breakLength}</div>
-        <button id="break-increment" onClick={handleBreakInc}>
-          +
-        </button>
-      </div>
+function Timer({ min, isRunning, setIsRunning, setIsSession }) {
+  const [sec, setSec] = useState(min * 60);
 
-      <div id="timer-label">{isSession ? "Session" : "Break"}</div>
-      <div id="time-left">{Math.floor(sec / 60)}:{sec % 60}</div>
+  function handleStart() {
+    setIsRunning(true);
+  }
 
-      <button id="start-stop" onClick={handleStop}>
+  function handleStop() {
+    setIsRunning(false);
+  }
+
+  if (sec === 0) {
+    setIsSession((is) => !is);
+  }
+
+  if (isRunning) {
+    setTimeout(() => setSec((s) => s - 1), 100);
+  }
+
+  return (
+    <div>
+      <div id="time-left">{sec}</div>
+
+      <button id="start_stop" onClick={isRunning ? handleStop : handleStart}>
         {isRunning ? "Stop" : "Start"}
       </button>
-      <button id="reset" onClick={handleReset}>Reset</button>
+    </div>
+  );
+}
+
+function Clock() {
+  const [session, setSession] = useState(1);
+  const [breakLength, setBreak] = useState(2);
+  const [isSession, setIsSession] = useState(true);
+  const [isRunning, setIsRunning] = useState(false);
+
+  const min = isSession ? session : breakLength;
+
+  return (
+    <div>
+      <SetLength name="session" min={session} set={setSession} />
+      <SetLength name="break" min={breakLength} set={setBreak} />
+
+      <div id="timer-label">{isSession ? "Session" : "Break"}</div>
+      <Timer
+        min={min}
+        isRunning={isRunning}
+        setIsRunning={setIsRunning}
+        setIsSession={setIsSession}
+        key={min}
+      />
+
+      <button id="reset">Reset</button>
     </div>
   );
 }
