@@ -10,11 +10,27 @@ function SetLength({ name, min, set }) {
   }
 
   return (
-    <div>
-      <div id={`${name}-label`}>{name} length</div>
-      <button id={`${name}-decrement`} onClick={handleDec}>-</button>
-      <div id={`${name}-length`}>{min}</div>
-      <button id={`${name}-increment`} onClick={handleInc}>+</button>
+    <div className="d-flex flex-column m-3">
+      <h4 id={`${name}-label`}>{name} length</h4>
+      <div className="d-flex justify-content-center">
+        <button
+          id={`${name}-decrement`}
+          onClick={handleDec}
+          type="button"
+          className="btn btn-primary m-2"
+        >
+          -
+        </button>
+        <h3 id={`${name}-length`} className="align-self-center">{min}</h3>
+        <button
+          id={`${name}-increment`}
+          onClick={handleInc}
+          type="button"
+          className="btn btn-primary m-2"
+        >
+          +
+        </button>
+      </div>
     </div>
   );
 }
@@ -77,18 +93,34 @@ function Clock() {
   }
 
   return (
-    <div>
-      <SetLength name="session" min={session} set={setSession} />
-      <SetLength name="break" min={breakLength} set={setBreak} />
+    <div className="d-flex flex-column text-bg-secondary align-items-center p-3 rounded-4">
+      <div className="d-flex">
+        <SetLength name="session" min={session} set={setSession} />
+        <SetLength name="break" min={breakLength} set={setBreak} />
+      </div>
 
-      <div id="timer-label">{isSession ? "Session" : "Break"}</div>
-      <div id="time-left">{secToMMSS(sec)}</div>
+      <h3 id="timer-label">{isSession ? "Session" : "Break"}</h3>
+      <h2 id="time-left">{secToMMSS(sec)}</h2>
 
-      <button id="start_stop" onClick={handleStartStop}>
-        {isRunning ? "Stop" : "Start"}
-      </button>
+      <div>
+        <button
+          id="start_stop"
+          onClick={handleStartStop}
+          type="button"
+          className="btn btn-primary m-2"
+        >
+          {isRunning ? "Stop" : "Start"}
+        </button>
 
-      <button id="reset" onClick={handleReset}>Reset</button>
+        <button
+          id="reset"
+          onClick={handleReset}
+          type="button"
+          className="btn btn-primary m-2"
+        >
+          Reset
+        </button>
+      </div>
     </div>
   );
 }
