@@ -14,8 +14,30 @@
     <link rel="stylesheet" href="styles.css" />
 </head>
 
-<body>
-    <div id="root"></div>
+<body class="vh-100 bg-primary-subtle d-flex flex-column">
+    <nav class="navbar navbar-expand fixed-top justify-content-end bg-body-tertiary">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="../random-quote-machine/">
+                    Random Quote Machine</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../markdown-previewer/">Markdown Previewer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../drum-machine/">Drum Machine</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../javascript-calculator/">JavaScript
+                    Calculator</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href=".">25 + 5 Clock</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="root" class="flex-grow-1 d-flex justify-content-center align-items-center"></div>
 
     <audio id="beep"
         src="https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav"></audio>
