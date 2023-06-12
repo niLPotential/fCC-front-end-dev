@@ -1,4 +1,4 @@
-const { useState } = React;
+const { useState, useEffect, useRef } = React;
 
 function SetLength({ name, min, set }) {
   function handleInc() {
@@ -19,43 +19,62 @@ function SetLength({ name, min, set }) {
   );
 }
 
-function Timer({ min, isRunning, setIsRunning, setIsSession }) {
-  const [sec, setSec] = useState(min * 60);
+function secToMMSS(sec) {
+  let min = Math.floor(sec / 60).toString();
+  let s = (sec % 60).toString();
 
-  function handleStart() {
-    setIsRunning(true);
+  if (min.length === 1) {
+    min = "0" + min;
   }
-
-  function handleStop() {
-    setIsRunning(false);
+  if (s.length === 1) {
+    s = "0" + s;
   }
-
-  if (sec === 0) {
-    setIsSession((is) => !is);
-  }
-
-  if (isRunning) {
-    setTimeout(() => setSec((s) => s - 1), 100);
-  }
-
-  return (
-    <div>
-      <div id="time-left">{sec}</div>
-
-      <button id="start_stop" onClick={isRunning ? handleStop : handleStart}>
-        {isRunning ? "Stop" : "Start"}
-      </button>
-    </div>
-  );
+  return min + ":" + s;
 }
 
 function Clock() {
-  const [session, setSession] = useState(1);
-  const [breakLength, setBreak] = useState(2);
+  const [session, setSession] = useState(25);
+  const [breakLength, setBreak] = useState(5);
   const [isSession, setIsSession] = useState(true);
   const [isRunning, setIsRunning] = useState(false);
 
   const min = isSession ? session : breakLength;
+  const [sec, setSec] = useState(min * 60);
+
+  const intervalRef = useRef(null);
+
+  useEffect(() => {
+    setSec(session * 60);
+  }, [session]);
+
+  useEffect(() => {
+    if (isRunning) {
+      intervalRef.current = setInterval(() => {
+        setSec((s) => s - 1);
+      }, 1000);
+    }
+    return () => clearInterval(intervalRef.current);
+  }, [isRunning]);
+
+  function handleStartStop() {
+    setIsRunning((is) => !is);
+  }
+
+  function handleReset() {
+    setSession(25);
+    setBreak(5);
+    setIsRunning(false);
+    setIsSession(true);
+    setSec(25 * 60);
+    beep.pause();
+    beep.currentTime = 0;
+  }
+
+  if (sec < 0) {
+    beep.play();
+    setSec((isSession ? breakLength : session) * 60);
+    setIsSession((is) => !is);
+  }
 
   return (
     <div>
@@ -63,15 +82,13 @@ function Clock() {
       <SetLength name="break" min={breakLength} set={setBreak} />
 
       <div id="timer-label">{isSession ? "Session" : "Break"}</div>
-      <Timer
-        min={min}
-        isRunning={isRunning}
-        setIsRunning={setIsRunning}
-        setIsSession={setIsSession}
-        key={min}
-      />
+      <div id="time-left">{secToMMSS(sec)}</div>
 
-      <button id="reset">Reset</button>
+      <button id="start_stop" onClick={handleStartStop}>
+        {isRunning ? "Stop" : "Start"}
+      </button>
+
+      <button id="reset" onClick={handleReset}>Reset</button>
     </div>
   );
 }
