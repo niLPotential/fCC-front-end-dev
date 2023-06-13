@@ -277,7 +277,7 @@ class Calculator extends React.Component {
         <div id="input-list" className="bg-dark-subtle p-1 text-end">
           {this.state.inputList.join(" ")}
         </div>
-        <div id="display" className="bg-light p-1 text-end">
+        <div id="display" className="text-bg-light p-1 text-end">
           {this.state.display}
         </div>
 
