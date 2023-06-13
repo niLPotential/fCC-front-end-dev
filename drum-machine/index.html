@@ -10,6 +10,7 @@
         crossorigin="anonymous" />
     <script src="../dark-mode.js"></script>
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="drum.css" />
 </head>
 
 <body class="vh-100 bg-primary-subtle d-flex flex-column">
@@ -70,12 +71,13 @@
         </div>
     </nav>
 
-    <div id="drum-machine-container" class="container flex-grow-1 d-flex justify-content-center align-items-center">
-        <div id="drum-machine" class="w-25 row justify-content-around bg-primary p-3 border border-dark rounded-5">
+    <div id="drum-machine-container" class="flex-grow-1 d-flex justify-content-center align-items-center">
+        <div id="drum-machine"
+            class="d-flex flex-column justify-content-center align-items-center bg-primary border border-dark rounded-5 p-3">
             <div id="display"
-                class="w-75 d-flex justify-content-center align-items-center text-bg-light m-3 border border-dark"
-                style="height: 40px;">
+                class="text-bg-light border border-dark m-3 d-flex justify-content-center align-items-center">
             </div>
+            <div id="drum-pad-container" class="row row-cols-3 g-2 justify-content-center p-3"></div>
         </div>
     </div>
 

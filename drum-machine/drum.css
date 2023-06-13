@@ -1,0 +1,12 @@
+#display {
+    height: 2.5rem;
+    width: 12rem;
+}
+
+#drum-machine {
+    width: 18rem;
+}
+
+.drum-pad {
+    width: 3rem;
+}

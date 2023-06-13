@@ -36,8 +36,8 @@ const drumPadsInfo = [{
   src: "https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3",
 }];
 
-const drumMachine = document.getElementById("drum-machine");
-const drumMachineDisplay = document.getElementById("display");
+const container = document.getElementById("drum-pad-container");
+const display = document.getElementById("display");
 
 drumPadsInfo.forEach((drumPadInfo) => createDrumPadElem(drumPadInfo));
 
@@ -58,10 +58,10 @@ function createDrumPadElem(drumPadInfo) {
   drumPadButton.innerText = drumPadInfo.innerText;
 
   // bootstrap styling
-  drumPadButton.classList.add("btn");
-  drumPadButton.classList.add("btn-dark");
-  drumPadButton.classList.add("col-3");
-  drumPadButton.classList.add("m-1");
+  drumPadButton.classList.add("btn", "btn-dark");
+
+  const drumPadContainer = document.createElement("div");
+  drumPadContainer.classList.add("col", "d-flex", "justify-content-center");
 
   const drumPadAudio = document.createElement("audio");
   drumPadAudio.classList.add("clip");
@@ -69,14 +69,15 @@ function createDrumPadElem(drumPadInfo) {
   drumPadAudio.src = drumPadInfo.src;
 
   drumPadButton.appendChild(drumPadAudio);
-  drumMachine.appendChild(drumPadButton);
+  drumPadContainer.appendChild(drumPadButton);
+  container.appendChild(drumPadContainer);
 
   drumPadButton.addEventListener("click", handleDrumPadClick);
   drumPadAudio.addEventListener("play", handleDrumPadPlay);
 }
 
 function handleDrumPadPlay(event) {
-  drumMachineDisplay.innerText = event.target.id;
+  display.innerText = event.target.id;
 }
 
 function handleDrumPadClick(event) {
